@@ -1,18 +1,63 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+     <b-form-group label="">
+      <b-form-checkbox-group
+        v-model="selected"
+        :options="options"
+        @change="change"
+        stacked
+        buttons
+      ></b-form-checkbox-group>
+    </b-form-group>
+    <div>{{rate}}</div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import CategoryDto from '../dtos/CategoryDto';
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld,
+  created() {
+    this.categories.push(new CategoryDto({
+      id: '10-17',
+      name: 'Élelmiszerek',
+      weight: 26.4,
+      value: 108.4,
+    }));
+    this.categories.push(new CategoryDto({
+      id: '18-19',
+      name: 'Szeszes italok, dohány áruk',
+      weight: 10.27,
+      value: 106.7,
+    }));
+    this.categories.push(new CategoryDto({
+      id: '3',
+      name: 'Ruházkodási cikkek',
+      weight: 53.7,
+      value: 98.9,
+    }));
+    this.categories.forEach((category) => {
+      this.options.push({ text: category.name, value: category.id });
+    });
+  },
+  computed: {
+    rate() {
+      const weights = this.categories.map((element) => element.weight)
+        .reduce((a, b) => a + b, 0);
+      const sum = this.categories.map((element) => element.weight * element.value)
+        .reduce((a, b) => a + b, 0);
+      return sum / weights;
+    },
+  },
+  data: () => ({
+    categories: [],
+    selected: [],
+    options: [],
+  }),
+  methods: {
+    change() {
+      console.log(this.selected);
+    },
   },
 };
-</script>

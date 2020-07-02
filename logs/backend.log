@@ -7,21 +7,5 @@
 [33m[nodemon] watching path(s): *.*[39m
 [33m[nodemon] watching extensions: js,mjs,json[39m
 [32m[nodemon] starting `node ./bin/www`[39m
-[0mGET / [32m200 [0m7.747 ms - 176[0m
-[0mGET /stylesheets/style.css [32m200 [0m1.869 ms - 111[0m
-[0mGET /favicon.ico [33m404 [0m2.333 ms - 150[0m
-[0mGET / [32m200 [0m0.826 ms - 176[0m
-[0mGET /stylesheets/style.css [32m200 [0m0.857 ms - 111[0m
-[0mGET /favicon.ico [33m404 [0m1.055 ms - 150[0m
-[32m[nodemon] restarting child process[39m
-[32m[nodemon] starting `node ./bin/www`[39m
-node[8654]: ../src/node.cc:687:void node::ResetStdio(): Assertion `(0) == (err)' failed.
- 1: 0xa0c020 node::Abort() [node]
- 2: 0xa0c09e  [node]
- 3: 0x9d7d17 node::ResetStdio() [node]
- 4: 0x7f9f32bf9ff8  [/lib/x86_64-linux-gnu/libc.so.6]
- 5: 0x7f9f32bfa045  [/lib/x86_64-linux-gnu/libc.so.6]
- 6: 0x9b2b87  [node]
- 7: 0xbee4fc  [node]
- 8: 0xbf0307 v8::internal::Builtin_HandleApiCall(int, unsigned long*, v8::internal::Isolate*) [node]
- 9: 0x13d8c59  [node]
+Port 5050 is already in use
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
