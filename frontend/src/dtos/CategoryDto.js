@@ -5,6 +5,7 @@ export default class CategoryDto {
       this.name = data.name;
       this.value = data.value;
       this.weight = data.weight;
+      this.active = data.active;
     }
   }
 }
