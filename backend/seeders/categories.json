@@ -1,23 +1,65 @@
 [
-{
-  "categoryId": "10-17",
-  "name": "Élelmiszerek",
-  "weight": "26.4",
-  "value": "108.4",
-  "active": false
-},
-{
-  "categoryId": "18-19",
-  "name": "Szeszes italok, dohány áruk",
-  "weight": "10.27",
-  "value": "106.7",
-  "active": false
-},
-{
-  "categoryId": "3",
-  "name": "Ruházkodási cikkek",
-  "weight": "3.7",
-  "value": "98.9",
-  "active": false
-}
+  {
+    "categoryId": "1",
+    "name": "Élelmiszerek, szeszes italok, dohányáruk",
+    "value": 107.9,
+    "weight": 36.67,
+    "active": true
+  },
+  {
+    "categoryId": "10-17",
+    "name": "Élelmiszerek",
+    "value": 108.4,
+    "weight": 26.4,
+    "active": true
+  },
+  {
+    "categoryId": "18-19",
+    "name": "Szeszes italok, dohány áruk",
+    "value": 106.7,
+    "weight": 10.27,
+    "active": true
+  },
+  {
+    "categoryId": "3",
+    "name": "Ruházkodási cikkek",
+    "value": 98.9,
+    "weight": 3.7,
+    "active": true
+  },
+  {
+    "categoryId": "4",
+    "name": "Tartós fogyasztási cikkek",
+    "value": 100.8,
+    "weight": 7.71,
+    "active": true
+  },
+  {
+    "categoryId": "50",
+    "name": "Háztartási energia",
+    "value": 100.3,
+    "weight": 6.54,
+    "active": true
+  },
+  {
+    "categoryId": "51-56",
+    "name": "Egyéb cikkek, üzemanyagok",
+    "value": 92.3,
+    "weight": 17.98,
+    "active": true
+  },
+  {
+    "categoryId": "5",
+    "name": "Háztartási energia, egyéb cikkek",
+    "value": 94.4,
+    "weight": 24.51,
+    "active": true
+  },
+  {
+    "categoryId": "6",
+    "name": "Szolgáltatások",
+    "value": 102.6,
+    "weight": 27.32,
+    "active": true
+  }
 ]

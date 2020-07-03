@@ -7,40 +7,19 @@
       <b-form-input type="number" v-model="category.weight" />
     </b-input-group>
     <p v-if="!isNaN(rate)">Személyes inflációd: {{rate}}%</p>
-    {{categories}}
   </div>
 </template>
 
 <script>
-import CategoryDto from '../dtos/CategoryDto';
 
 export default {
   name: 'Home',
   data: () => ({
     categories: [],
   }),
-  created() {
-    this.categories.push(new CategoryDto({
-      id: '10-17',
-      name: 'Élelmiszerek',
-      weight: 26.4,
-      value: 108.4,
-      active: false,
-    }));
-    this.categories.push(new CategoryDto({
-      id: '18-19',
-      name: 'Szeszes italok, dohány áruk',
-      weight: 10.27,
-      value: 106.7,
-      active: false,
-    }));
-    this.categories.push(new CategoryDto({
-      id: '3',
-      name: 'Ruházkodási cikkek',
-      weight: 3.7,
-      value: 98.9,
-      active: false,
-    }));
+  async created() {
+    await this.$store.dispatch('categories/getCategories');
+    this.categories = this.$store.state.categories.categories;
   },
   computed: {
     rate() {
