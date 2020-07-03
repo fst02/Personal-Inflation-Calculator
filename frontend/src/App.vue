@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Főoldal</router-link> |
+      <router-link to="/about">Rólunk</router-link>
     </div>
     <router-view/>
   </div>
@@ -28,5 +28,11 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+label.btn.btn-outline-info:hover {
+  background-color: #65b768 !important;
+}
+.btn-group-vertical > .btn {
+  box-shadow: none !important;
 }
 </style>

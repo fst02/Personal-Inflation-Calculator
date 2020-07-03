@@ -6,9 +6,10 @@
         :options="options"
         stacked
         buttons
+        button-variant="outline-info"
       ></b-form-checkbox-group>
     </b-form-group>
-    <div>{{rate}}</div>
+    <div v-if="!isNaN(rate)">Személyes inflációd: {{rate}}%</div>
   </div>
 </template>
 
@@ -55,7 +56,7 @@ export default {
         .reduce((a, b) => a + b, 0);
       const sum = selectedCategories.map((element) => element.weight * element.value)
         .reduce((a, b) => a + b, 0);
-      return sum / weights;
+      return Math.round((sum / weights) * 100) / 100;
     },
   },
   methods: {

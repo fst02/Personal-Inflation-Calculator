@@ -14,6 +14,7 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import('../views/About.vue'),
+    beforeEnter() { window.location.href = 'http://fullstack.braininghub.com/introduction/'; },
   },
 ];
 
