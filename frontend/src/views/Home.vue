@@ -4,7 +4,6 @@
       <b-form-checkbox-group
         v-model="selected"
         :options="options"
-        @change="change"
         stacked
         buttons
       ></b-form-checkbox-group>
@@ -18,6 +17,11 @@ import CategoryDto from '../dtos/CategoryDto';
 
 export default {
   name: 'Home',
+  data: () => ({
+    categories: [],
+    selected: [],
+    options: [],
+  }),
   created() {
     this.categories.push(new CategoryDto({
       id: '10-17',
@@ -34,7 +38,7 @@ export default {
     this.categories.push(new CategoryDto({
       id: '3',
       name: 'Ruházkodási cikkek',
-      weight: 53.7,
+      weight: 3.7,
       value: 98.9,
     }));
     this.categories.forEach((category) => {
@@ -43,21 +47,18 @@ export default {
   },
   computed: {
     rate() {
-      const weights = this.categories.map((element) => element.weight)
+      const { selected } = this;
+      const selectedCategories = this.categories.filter(
+        (category) => selected.includes(category.id),
+      );
+      const weights = selectedCategories.map((element) => element.weight)
         .reduce((a, b) => a + b, 0);
-      const sum = this.categories.map((element) => element.weight * element.value)
+      const sum = selectedCategories.map((element) => element.weight * element.value)
         .reduce((a, b) => a + b, 0);
       return sum / weights;
     },
   },
-  data: () => ({
-    categories: [],
-    selected: [],
-    options: [],
-  }),
   methods: {
-    change() {
-      console.log(this.selected);
-    },
   },
 };
+</script>
