@@ -1,0 +1,23 @@
+[
+{
+  "categoryId": "10-17",
+  "name": "Élelmiszerek",
+  "weight": "26.4",
+  "value": "108.4",
+  "active": false
+},
+{
+  "categoryId": "18-19",
+  "name": "Szeszes italok, dohány áruk",
+  "weight": "10.27",
+  "value": "106.7",
+  "active": false
+},
+{
+  "categoryId": "3",
+  "name": "Ruházkodási cikkek",
+  "weight": "3.7",
+  "value": "98.9",
+  "active": false
+}
+]
