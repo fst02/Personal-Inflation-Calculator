@@ -1,15 +1,13 @@
 const fs = require('fs');
+const util = require('util');
+const path = require('path');
 
-const imageExists = (categoryId) => new Promise((resolve, reject) => {
-  const path = `../public/images/image-${categoryId}.jpg`;
-  fs.access(path, fs.F_OK, (err) => {
-    if (err) {
-      reject();
-    } else {
-      resolve();
-    }
-  });
-});
+const fsAccess = util.promisify(fs.access);
+
+const imageExists = (categoryId) => {
+  const imagePath = path.join(__dirname, `../public/images/image-${categoryId}.jpg`);
+  return fsAccess(imagePath, fs.F_OK);
+};
 
 module.exports = {
   imageExists,

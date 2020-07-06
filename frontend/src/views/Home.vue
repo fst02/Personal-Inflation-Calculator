@@ -1,19 +1,27 @@
 <template>
-  <div class="home">
-    <b-input-group v-for="category in categories" :key="category.id" :prepend="category.name">
-      <b-input-group-prepend is-text>
-        <b-form-checkbox switch class="mr-n2" v-model="category.active" />
-      </b-input-group-prepend>
-      <b-form-input type="number" v-model="category.weight" />
-    </b-input-group>
-    <p v-if="!isNaN(rate)">Személyes inflációd: {{rate}}%</p>
-  </div>
+  <b-container>
+    <h1>Infláció kalkulátor</h1>
+    <RateComponent :categories="categories"/>
+    <div>
+      <b-form-text class="mb-2">
+        Állitsd át a kategória csúszkát és valtoztasd meg a súlyokat
+        a személyre szabott infláció számitáshoz
+      </b-form-text>
+    </div>
+    <CardsComponent :categories="categories"/>
+  </b-container>
 </template>
 
 <script>
+import RateComponent from '../components/RateComponent.vue';
+import CardsComponent from '../components/CardsComponent.vue';
 
 export default {
   name: 'Home',
+  components: {
+    RateComponent,
+    CardsComponent,
+  },
   data: () => ({
     categories: [],
   }),
@@ -21,19 +29,13 @@ export default {
     await this.$store.dispatch('categories/getCategories');
     this.categories = this.$store.state.categories.categories;
   },
-  computed: {
-    rate() {
-      const selectedCategories = this.categories.filter(
-        (category) => category.active === true,
-      );
-      const weights = selectedCategories.map((element) => parseFloat(element.weight))
-        .reduce((a, b) => a + b, 0);
-      const sum = selectedCategories.map((element) => parseFloat(element.weight) * element.value)
-        .reduce((a, b) => a + b, 0);
-      return Math.round((sum / weights) * 100) / 100;
-    },
-  },
-  methods: {
-  },
 };
 </script>
+
+<style>
+  .card-img {
+  overflow: hidden;
+  object-fit: cover !important;
+  height: 100% !important;
+}
+</style>

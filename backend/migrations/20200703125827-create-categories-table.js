@@ -20,6 +20,9 @@ module.exports = {
       weight: {
         type: Sequelize.FLOAT,
       },
+      imagePath: {
+        type: Sequelize.STRING,
+      },
       active: {
         type: Sequelize.BOOLEAN,
       },

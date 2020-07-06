@@ -16,12 +16,6 @@ const routes = [
     component: () => import('../views/About.vue'),
     beforeEnter() { window.location.href = 'http://fullstack.braininghub.com/introduction/'; },
   },
-  {
-    path: '/newhome',
-    name: 'NewHome',
-    component: () => import('../views/NewHome.vue'),
-  },
-
 ];
 
 const router = new VueRouter({

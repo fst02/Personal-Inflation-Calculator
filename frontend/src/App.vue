@@ -4,7 +4,6 @@
       <b-navbar-nav class="mx-auto">
         <b-nav-item to="/">Főoldal</b-nav-item>
         <b-nav-item to="/about">Rólunk</b-nav-item>
-        <b-nav-item to="/newhome">NewHome</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
     <router-view/>

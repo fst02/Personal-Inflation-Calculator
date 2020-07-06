@@ -18,6 +18,9 @@ const Category = sequelize.define('categories', {
   weight: {
     type: Sequelize.FLOAT,
   },
+  imagePath: {
+    type: Sequelize.STRING,
+  },
   active: {
     type: Sequelize.BOOLEAN,
   },
