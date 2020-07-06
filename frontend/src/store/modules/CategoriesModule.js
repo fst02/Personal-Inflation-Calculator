@@ -1,14 +1,15 @@
 import http from '../helpers/HttpHelper';
+import CategoryDto from '../../dtos/CategoryDto';
 
 export default {
   namespaced: true,
   state: {
-    categories: null,
+    categories: [],
     error: null,
   },
   mutations: {
     setCategories(state, payload) {
-      state.categories = payload;
+      state.categories = payload.map((category) => new CategoryDto(category));
       state.error = null;
     },
     setError(state, payload) {

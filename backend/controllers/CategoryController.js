@@ -8,7 +8,6 @@ const getAll = async (req, res) => {
     res.status(500).json(err);
   }
 };
-const findImage 
 
 module.exports = {
   getAll,

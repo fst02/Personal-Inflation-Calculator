@@ -1,26 +1,26 @@
 <template>
   <b-container>
     <h1>Infláció kalkulátor</h1>
-    <RateComponent :categories="categories"/>
+    <RateComponent :categories="categories" />
     <div>
       <b-form-text class="mb-2">
         Állitsd át a kategória csúszkát és valtoztasd meg a súlyokat
         a személyre szabott infláció számitáshoz
       </b-form-text>
     </div>
-    <CardsComponent :categories="categories"/>
+    <CategoryComponent v-for="category in categories" :key="category.id" :category="category" />
   </b-container>
 </template>
 
 <script>
 import RateComponent from '../components/RateComponent.vue';
-import CardsComponent from '../components/CardsComponent.vue';
+import CategoryComponent from '../components/CategoryComponent.vue';
 
 export default {
   name: 'Home',
   components: {
     RateComponent,
-    CardsComponent,
+    CategoryComponent,
   },
   data: () => ({
     categories: [],
