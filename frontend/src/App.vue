@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Főoldal</router-link> |
-      <router-link to="/about">Rólunk</router-link>
-    </div>
+    <b-navbar>
+      <b-navbar-nav class="mx-auto">
+        <b-nav-item to="/">Főoldal</b-nav-item>
+        <b-nav-item to="/about">Rólunk</b-nav-item>
+        <b-nav-item to="/newhome">NewHome</b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
     <router-view/>
   </div>
 </template>
