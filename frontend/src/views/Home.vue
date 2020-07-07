@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <div>
     <h1>Infláció kalkulátor</h1>
     <RateComponent :categories="categories" />
     <div>
@@ -9,7 +9,7 @@
       </b-form-text>
     </div>
     <CategoryComponent v-for="category in categories" :key="category.id" :category="category" />
-  </b-container>
+  </div>
 </template>
 
 <script>

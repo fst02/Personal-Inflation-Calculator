@@ -21,6 +21,11 @@ const routes = [
     name: 'Registration',
     component: () => import('../views/Registration.vue'),
   },
+  {
+    path: '/registration/verify',
+    name: 'Verification',
+    component: () => import('../views/Verification.vue'),
+  },
 ];
 
 const router = new VueRouter({

@@ -24,6 +24,12 @@ const messages = {
       email: 'Az email cím már foglalt',
       general: 'Sikertelen regisztráció',
     },
+    verification: {
+      errors: {
+        tokenExpired: 'Érvénytelen vagy lejárt token',
+        alreadyVerified: 'Felhasználói fiók már aktív',
+      },
+    },
   },
 };
 

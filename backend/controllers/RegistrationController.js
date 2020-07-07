@@ -44,13 +44,13 @@ module.exports = {
           where: { id: userActivation.userId },
         });
         if (user.isVerified) {
-          throw new VerificationError('Account is already verified');
+          throw new VerificationError('verification.errors.alreadyVerified');
         }
         user.isVerified = true;
         user.save();
         res.json(user);
       } else {
-        throw new VerificationError('Invalid or expired token');
+        throw new VerificationError('verification.errors.tokenExpired');
       }
     } catch (err) {
       if (err instanceof VerificationError) {

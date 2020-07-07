@@ -7,7 +7,9 @@
         <b-nav-item to="/registration">Regisztráció</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
-    <router-view/>
+    <b-container>
+      <router-view />
+    </b-container>
   </div>
 </template>
 
