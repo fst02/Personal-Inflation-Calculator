@@ -11,12 +11,12 @@
             <h5 class="mb-0 text-left my-auto">{{category.name}}</h5>
           </b-col>
           <b-col>
-              <p class="mb-0 float-md-right float-left">Be-/kikapcsolás</p>
-              <b-form-checkbox
-                switch
-                class="mr-1 float-md-right float-left"
-                v-model="category.active"
-              />
+            <div class="pretty p-switch mb-0 float-md-right float-left">
+              <input type="checkbox" v-model="category.active" />
+              <div class="state p-info ">
+                <label>Be-/kikapcsolás</label>
+              </div>
+            </div>
           </b-col>
         </b-row>
       </template>

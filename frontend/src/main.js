@@ -6,6 +6,7 @@ import store from './store';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue';
+import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
