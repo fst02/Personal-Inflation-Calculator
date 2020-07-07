@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuelidate from 'vuelidate';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import VueI18n from 'vue-i18n';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -12,11 +13,28 @@ import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(Vuelidate);
+Vue.use(VueI18n);
 
 Vue.config.productionTip = false;
+
+const messages = {
+  hu: {
+    validationErrors: {
+      nickname: 'A felhasználónév már foglalt',
+      email: 'Az email cím már foglalt',
+      general: 'Sikertelen regisztráció',
+    },
+  },
+};
+
+const i18n = new VueI18n({
+  locale: 'hu',
+  messages,
+});
 
 new Vue({
   router,
   store,
   render: (h) => h(App),
+  i18n,
 }).$mount('#app');

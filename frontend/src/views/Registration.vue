@@ -2,11 +2,11 @@
   <div class="w-50 mx-auto">
     <b-form @submit.prevent="register">
       <h1>Regisztráció</h1>
-      <b-alert show variant="danger" v-if="error">{{error.message}}</b-alert>
+      <b-alert show variant="danger" v-if="error">{{ $t("validationErrors.general")}}</b-alert>
       <b-form-group label="Felhasználónév">
         <b-form-input type="text" v-model="user.nickname" @input="$v.user.nickname.$touch()" />
         <b-alert show variant="danger" v-if="getFieldBackendError('nickname')">
-          {{getFieldBackendError('nickname').message}}
+          {{ $t("validationErrors.nickname") }}
         </b-alert>
         <div v-if="$v.user.nickname.$dirty">
           <b-alert show variant="danger" v-if="!$v.user.nickname.required">
@@ -20,23 +20,20 @@
       <b-form-group label="Email">
         <b-form-input type="email" v-model="user.email" @input="$v.user.email.$touch()" />
         <b-alert show variant="danger" v-if="getFieldBackendError('email')">
-          {{getFieldBackendError('email').message}}
+          {{ $t("validationErrors.email") }}
         </b-alert>
         <div v-if="$v.user.email.$dirty">
           <b-alert show variant="danger" v-if="!$v.user.email.required" >
             Email megadása kötelező
           </b-alert>
           <b-alert show variant="danger" v-if="!$v.user.email.email">
-            Érvényes és létező email cím megadása kötelező
+            Érvényes email cím megadása kötelező
           </b-alert>
         </div>
       </b-form-group>
 
       <b-form-group label="Jelszó">
         <b-form-input type="password" v-model="user.password" @input="$v.user.password.$touch()" />
-        <b-alert show variant="danger" v-if="getFieldBackendError('password')">
-          {{getFieldBackendError('password').message}}
-        </b-alert>
         <div v-if="$v.user.password.$dirty">
           <b-alert show variant="danger" v-if="!$v.user.password.required">
             Jelszó megadása kötelező
