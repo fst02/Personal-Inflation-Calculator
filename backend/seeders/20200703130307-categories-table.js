@@ -6,8 +6,8 @@ module.exports = {
     const processedCategories = categories.map(async (category) => {
       let path;
       try {
-        await ImageService.imageExists(category.categoryId);
-        path = `image-${category.categoryId}.jpg`;
+        await ImageService.imageExists(category.id);
+        path = `image-${category.id}.jpg`;
       } catch (err) {
         path = 'default-avatar.jpg';
       }
