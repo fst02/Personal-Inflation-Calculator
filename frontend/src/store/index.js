@@ -1,13 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import CategoriesModule from './modules/CategoriesModule';
+import VuexPersistence from 'vuex-persist';
 import AuthModule from './modules/AuthModule';
+import CategoriesModule from './modules/CategoriesModule';
 
 Vue.use(Vuex);
+
+const persistence = new VuexPersistence({
+  storage: window.localStorage,
+  modules: ['auth', 'categories'],
+});
 
 export default new Vuex.Store({
   modules: {
     categories: CategoriesModule,
     auth: AuthModule,
   },
+  plugins: [
+    persistence.plugin,
+  ],
 });

@@ -19,7 +19,7 @@ module.exports = {
         user,
       });
     } else {
-      res.status(401).json({ error: 'Invalid email/password or not verified user' });
+      res.status(401).json({ message: 'signIn.errors.invalidCredentials' });
     }
   },
 };

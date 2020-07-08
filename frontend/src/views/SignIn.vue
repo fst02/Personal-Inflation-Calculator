@@ -6,10 +6,9 @@
     <b-alert show variant="success" class="mt-3 text-center" v-if="justRegistered">
         {{ $t('signIn.info.successfulRegistration') }}
     </b-alert>
-    <b-form @submit.prevent="login"
-      @reset.prevent="reset">
-      <h1>Sign In</h1>
-      <b-alert show variant="danger" v-if="error">{{error.error}}</b-alert>
+    <b-form @submit.prevent="login">
+      <h1>Bejelentkezés</h1>
+      <b-alert show variant="danger" v-if="error">{{ $t(error.message) }}</b-alert>
       <b-form-group label="Email">
         <b-form-input type="email" v-model="user.email" @input="$v.user.email.$touch()" />
         <div v-if="$v.user.email.$dirty">
@@ -22,7 +21,7 @@
         </div>
       </b-form-group>
 
-      <b-form-group label="Password">
+      <b-form-group label="Jelszó">
         <b-form-input type="password" v-model="user.password" @input="$v.user.password.$touch()" />
         <div v-if="$v.user.password.$dirty">
           <b-alert show variant="danger" v-if="!$v.user.password.required">
@@ -31,8 +30,7 @@
         </div>
       </b-form-group>
       <div class="text-right">
-        <b-button variant="outline-success" type="submit" class="mr-2">Sign in</b-button>
-        <b-button variant="outline-danger" type="reset">Reset</b-button>
+        <b-button variant="outline-success" type="submit" class="mr-2">Bejelentkezés</b-button>
       </div>
     </b-form>
   </div>
@@ -66,11 +64,6 @@ export default {
       } else {
         this.error = this.$store.state.auth.error;
       }
-    },
-    reset() {
-      this.user = new UserDto();
-      this.error = null;
-      this.$v.$reset();
     },
   },
   validations: {

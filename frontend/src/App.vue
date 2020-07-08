@@ -6,6 +6,7 @@
         <b-nav-item to="/about">Rólunk</b-nav-item>
         <b-nav-item v-if="!user" to="/registration">Regisztráció</b-nav-item>
         <b-nav-item v-if="!user" to="/signIn">Bejelentkezés</b-nav-item>
+        <b-nav-item v-if="user" @click="logout()">Kijelentkezés</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
     <b-container>
@@ -20,6 +21,12 @@ import { mapState } from 'vuex';
 export default {
   name: 'App',
   computed: mapState({ user: (state) => state.auth.user }),
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/');
+    },
+  },
 };
 </script>
 

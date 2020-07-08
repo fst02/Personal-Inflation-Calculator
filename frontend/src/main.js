@@ -35,6 +35,9 @@ const messages = {
         welcome: 'Üdvözöllek @{name}, sikeresen aktiváltad fiókodat',
         successfulRegistration: 'Sikeres regisztráció. Kérlek ellenőrizd az email fiókodat',
       },
+      errors: {
+        invalidCredentials: 'Érvénytelen email/jelszó vagy nem aktivált felhasználói fiók',
+      },
     },
     validation: {
       emailRequired: 'Email cím megadása kötelező',
