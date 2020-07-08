@@ -6,8 +6,9 @@ const config = require('../config/config.json')[env];
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 const Category = sequelize.define('categories', {
-  categoryId: {
+  id: {
     type: Sequelize.STRING,
+    primaryKey: true,
   },
   name: {
     type: Sequelize.STRING,
