@@ -26,6 +26,11 @@ const routes = [
     name: 'Verification',
     component: () => import('../views/Verification.vue'),
   },
+  {
+    path: '/signIn',
+    name: 'SignIn',
+    component: () => import('../views/SignIn.vue'),
+  },
 ];
 
 const router = new VueRouter({

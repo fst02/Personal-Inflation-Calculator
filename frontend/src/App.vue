@@ -4,7 +4,8 @@
       <b-navbar-nav class="mx-auto">
         <b-nav-item to="/">Főoldal</b-nav-item>
         <b-nav-item to="/about">Rólunk</b-nav-item>
-        <b-nav-item to="/registration">Regisztráció</b-nav-item>
+        <b-nav-item v-if="!user" to="/registration">Regisztráció</b-nav-item>
+        <b-nav-item v-if="!user" to="/signIn">Bejelentkezés</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
     <b-container>
@@ -12,6 +13,15 @@
     </b-container>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  name: 'App',
+  computed: mapState({ user: (state) => state.auth.user }),
+};
+</script>
 
 <style>
 #app {

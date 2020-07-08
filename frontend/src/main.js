@@ -30,6 +30,17 @@ const messages = {
         alreadyVerified: 'Felhasználói fiók már aktív',
       },
     },
+    signIn: {
+      info: {
+        welcome: 'Üdvözöllek @{name}, sikeresen aktiváltad fiókodat',
+        successfulRegistration: 'Sikeres regisztráció. Kérlek ellenőrizd az email fiókodat',
+      },
+    },
+    validation: {
+      emailRequired: 'Email cím megadása kötelező',
+      emailValidation: 'Érvényes/létező email cím megadása kötelező',
+      passwordRequired: 'Jelszó megadása kötelező',
+    },
   },
 };
 
