@@ -12,7 +12,7 @@
           </b-col>
           <b-col>
             <div class="pretty p-switch mb-0 float-md-right float-left">
-              <input type="checkbox" v-model="category.active" />
+              <input @change="modifyCategory" type="checkbox" v-model="category.active" />
               <div class="state p-info ">
                 <label>Be-/kikapcsolás</label>
               </div>
@@ -32,7 +32,12 @@
           <b-card-body>
             <b-card-text>
               <b-input-group class="mr-1 p-0" prepend="Súly:">
-                <b-form-input type="number" v-model="category.weight" />
+                <b-form-input
+                  @keyup="setTimer"
+                  @keydown="countDown"
+                  type="number"
+                  v-model="category.weight"
+                />
               </b-input-group>
               <h6 class="mt-2 font-weight-bold">Alkategóriák:</h6>
               <b-row align-v="center" class="ml-0">
@@ -57,15 +62,38 @@
 
 <script>
 import CategoryDto from '../dtos/CategoryDto';
+import UserCategoryDto from '../dtos/UserCategoryDto';
 
 export default {
   name: 'CategoryComponent',
   props: {
     category: CategoryDto,
   },
+  data: () => ({ typingTimer: null }),
   computed: {
     imagePath() {
       return `${process.env.VUE_APP_API_ENDPOINT}/images/${this.category.imagePath}`;
+    },
+  },
+  methods: {
+    modifyCategory() {
+      const userCategory = new UserCategoryDto({
+        userId: this.$store.state.auth.user.id,
+        categoryId: this.category.id,
+        weight: this.category.weight,
+        active: this.category.active,
+      });
+      console.log(userCategory);
+      this.$store.dispatch('categories/setUserSpecific', userCategory);
+    },
+    countDown() {
+      clearTimeout(this.typingTimer);
+    },
+    setTimer() {
+      clearTimeout(this.typingTimer);
+      this.typingTimer = setTimeout(() => {
+        this.modifyCategory();
+      }, 3000);
     },
   },
 };

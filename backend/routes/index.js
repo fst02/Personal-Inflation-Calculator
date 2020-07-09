@@ -12,5 +12,6 @@ router.get('/registration/verify', RegistrationController.verify);
 router.post('/signIn', SignInController.signIn);
 router.post('/auth/verify', AuthController.verifyToken);
 router.get('/userCategories', CategoryController.getUserSpecific);
+router.post('/userCategories/edit', CategoryController.setUserSpecific);
 
 module.exports = router;

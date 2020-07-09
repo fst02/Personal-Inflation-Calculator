@@ -35,10 +35,15 @@ export default {
       try {
         const result = await http(context).get(`/userCategories?userId=${userId}`);
         context.commit('setUserCategories', result.data);
-        console.log(result.data);
       } catch (err) {
         context.commit('setError', err.response?.data || err);
-        console.log(err);
+      }
+    },
+    async setUserSpecific(context, userCategory) {
+      try {
+        await http(context).post('/userCategories/edit', userCategory);
+      } catch (err) {
+        context.commit('setError', err.response?.data || err);
       }
     },
   },

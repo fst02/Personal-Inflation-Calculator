@@ -21,7 +21,29 @@ const getUserSpecific = async (req, res) => {
   }
 };
 
+const setUserSpecific = async (req, res) => {
+  try {
+    let userCategory = await UserCategories.findOne({
+      where: {
+        userId: req.body.userId,
+        categoryId: req.body.categoryId,
+      },
+    });
+    if (userCategory) {
+      userCategory.active = req.body.active;
+      userCategory.weight = req.body.weight;
+      userCategory.save();
+    } else {
+      userCategory = await UserCategories.create(req.body);
+    }
+    res.json(userCategory);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   getAll,
   getUserSpecific,
+  setUserSpecific,
 };
