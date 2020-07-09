@@ -32,6 +32,23 @@ export default {
       await this.$store.dispatch('auth/verifyToken');
       if (this.$store.state.auth.token) {
         await this.$store.dispatch('categories/getUserCategories', this.$store.state.auth.user.id);
+        const { userCategories } = this.$store.state.categories;
+        userCategories.forEach((userCategory) => {
+          const tmp = this.categories.filter((category) => category.id === userCategory.categoryId);
+          if (tmp[0]) {
+            tmp[0].weight = userCategory.weight;
+            tmp[0].active = userCategory.active;
+          }
+        });
+        // this.categories.map((category) => {
+        //   const tp = userCategories.find((userCategory) =>
+        // userCategory.categoryId === category.id);
+        //   if (tp) {
+        //     category.active = tp.active; //eslint-disable-line
+        //     category.weight = tp.weight; //eslint-disable-line
+        //   }
+        //   return new CategoryDto(category);
+        // });
       }
     }
   },
