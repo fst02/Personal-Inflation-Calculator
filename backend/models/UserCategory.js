@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const { User, Category } = require('./index');
+const User = require('./User');
+const Category = require('./Category');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config.json')[env];

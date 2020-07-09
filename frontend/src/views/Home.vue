@@ -28,6 +28,12 @@ export default {
   async created() {
     await this.$store.dispatch('categories/getCategories');
     this.categories = this.$store.state.categories.categories;
+    if (this.$store.state.auth.user) {
+      await this.$store.dispatch('auth/verifyToken');
+      if (this.$store.state.auth.token) {
+        await this.$store.dispatch('categories/getUserCategories', this.$store.state.auth.user.id);
+      }
+    }
   },
 };
 </script>

@@ -49,5 +49,12 @@ export default {
     logout(context) {
       context.commit('deleteSessionData');
     },
+    async verifyToken(context) {
+      try {
+        await http(context).post('/auth/verify');
+      } catch (err) {
+        context.commit('deleteSessionData');
+      }
+    },
   },
 };

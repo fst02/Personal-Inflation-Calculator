@@ -26,5 +26,8 @@ export default (context) => {
   if (!http) {
     http = createAxiosInstance(context);
   }
+  if (context.rootState.auth.token) {
+    http.defaults.headers.common.Authorization = `Bearer ${context.rootState.auth.token}`;
+  }
   return http;
 };

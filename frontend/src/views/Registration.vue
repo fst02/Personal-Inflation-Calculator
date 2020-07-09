@@ -106,7 +106,7 @@ export default {
           `${process.env.VUE_APP_API_ENDPOINT}/registration`,
           this.user,
         );
-        // this.$router.push('/signin?success=true');
+        this.$router.push('/signin?success=true');
       } catch (err) {
         this.error = err.response.data;
       }
