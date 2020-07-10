@@ -93,7 +93,7 @@ export default {
       clearTimeout(this.typingTimer);
       this.typingTimer = setTimeout(() => {
         this.modifyCategory();
-      }, 3000);
+      }, 2000);
     },
   },
 };
