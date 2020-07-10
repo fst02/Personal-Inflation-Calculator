@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const mjml2html = require('mjml');
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -7,6 +8,21 @@ const transporter = nodemailer.createTransport({
     pass: process.env.NODEMAILER_PASSWORD,
   },
 });
+
+const htmlOutput = mjml2html(`
+  <mjml>
+    <mj-body>
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            Hello World!
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-body>
+  </mjml>
+`, options);
+console.log(htmlOutput);
 
 const send = (to, subject, text) => {
   const mailOptions = {
