@@ -21,4 +21,14 @@ module.exports = {
       throw new RegistrationError('Validation error', err.errors);
     }
   },
+
+  updateToken: async (userId, token) => {
+    const expiredAt = new Date();
+    expiredAt.setHours(expiredAt.getHours() + 24);
+    try {
+      await UserActivation.update({ token, expiredAt }, { where: { userId } });
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };

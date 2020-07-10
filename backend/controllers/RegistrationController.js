@@ -39,18 +39,30 @@ module.exports = {
     try {
       const currentDate = new Date();
       const userActivation = await AuthService.select(req.query.token);
-      if (userActivation && userActivation.expiredAt >= currentDate) {
+      if (userActivation) {
         const user = await User.findOne({
           where: { id: userActivation.userId },
         });
         if (user.isVerified) {
           throw new VerificationError('verification.errors.alreadyVerified');
         }
+        if (userActivation.expiredAt < currentDate) {
+          const token = cryptoRandomString({ length: 15, type: 'url-safe' });
+          await UserService.updateToken(user.id, token);
+          MailerService.send(
+            user.email,
+            'Confirmation email',
+            `Let's confirm your email address.
+            Please finish your registration by clicking on the link below:
+            ${process.env.BASE_URL_FRONTEND}/registration/verify?token=${token}`,
+          );
+          throw new VerificationError('verification.errors.tokenExpired');
+        }
         user.isVerified = true;
         user.save();
         res.json(user);
       } else {
-        throw new VerificationError('verification.errors.tokenExpired');
+        throw new VerificationError('verification.errors.tokenInvalid');
       }
     } catch (err) {
       if (err instanceof VerificationError) {

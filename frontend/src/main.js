@@ -26,7 +26,8 @@ const messages = {
     },
     verification: {
       errors: {
-        tokenExpired: 'Érvénytelen vagy lejárt token',
+        tokenExpired: 'Lejárt token, az új aktiváló linket elküldtük email címedre, kérlek ellenőrizd',
+        tokenInvalid: 'Érvénytelen token, ellenőrizd jó linket nyitottál-e meg',
         alreadyVerified: 'Felhasználói fiók már aktív',
       },
     },
