@@ -28,6 +28,7 @@ module.exports = {
       const context = {
         nickname: user.nickname,
         frontendURL: process.env.BASE_URL_FRONTEND,
+        backendUrl: process.env.BASE_URL_BACKEND,
         token,
       };
       const hbsProcessedTemplate = template(context);
