@@ -26,7 +26,9 @@
             padding-right="25px"
             padding-bottom="15px"
             padding-top="25px"
-          >Köszönjük, hogy regisztráltál az infláció kalkulátor oldalra</mj-text>
+          >
+            <mj-raw>{{welcomeMessage}}</mj-raw>
+          </mj-text>
         </mj-column>
       </mj-section>
       <mj-section padding-bottom="20px" padding-top="20px">
@@ -50,7 +52,7 @@
             Regisztrációd megerősítéséhez kattints az alábbi gombra:
           </mj-text>
           <mj-button
-            href="{{frontendURL}}/registration/verify?token={{token}}"
+            href="{{frontendUrl}}/registration/verify?token={{token}}"
             align="left"
             font-size="22px"
             background-color="#efeb65"

@@ -1,12 +1,8 @@
-const Handlebars = require('handlebars');
-const fs = require('fs');
-const path = require('path');
-const mjml2html = require('mjml');
-
 const hasha = require('hasha');
 const cryptoRandomString = require('crypto-random-string');
 
-const MailerService = require('../services/MailerService');
+const MailSenderService = require('../services/MailSenderService');
+const MailComposerService = require('../services/MailComposerService');
 const AuthService = require('../services/AuthService');
 const { VerificationError } = require('./errors/VerificationError');
 const { RegistrationError } = require('./errors/RegistrationError');
@@ -23,20 +19,17 @@ module.exports = {
       const user = await UserService.create(userData);
       const token = cryptoRandomString({ length: 15, type: 'url-safe' });
       await UserService.activate(user, token);
-      const templateFile = fs.readFileSync(path.join(__dirname, '../views/email.hbs'), 'utf8');
-      const template = Handlebars.compile(templateFile);
       const context = {
         nickname: user.nickname,
-        frontendURL: process.env.BASE_URL_FRONTEND,
+        frontendUrl: process.env.BASE_URL_FRONTEND,
         backendUrl: process.env.BASE_URL_BACKEND,
+        welcomeMessage: 'Köszönjük, hogy regisztráltál az Infláció Kalkulátor oldalra',
         token,
       };
-      const hbsProcessedTemplate = template(context);
-      const mjmlProcessedTemplate = mjml2html(hbsProcessedTemplate);
-      MailerService.send(
-        userData.email,
+      MailSenderService.send(
+        user.email,
         'Megerősítő email',
-        mjmlProcessedTemplate.html,
+        MailComposerService.compose(context, 'email.hbs'),
       );
       res.json(user);
     } catch (err) {
@@ -61,12 +54,17 @@ module.exports = {
         if (userActivation.expiredAt < currentDate) {
           const token = cryptoRandomString({ length: 15, type: 'url-safe' });
           await UserService.updateToken(user.id, token);
-          MailerService.send(
+          const context = {
+            nickname: user.nickname,
+            frontendUrl: process.env.BASE_URL_FRONTEND,
+            backendUrl: process.env.BASE_URL_BACKEND,
+            welcomeMessage: 'Újraküldtük az aktivációs linket',
+            token,
+          };
+          MailSenderService.send(
             user.email,
-            'Confirmation email',
-            `Let's confirm your email address.
-            Please finish your registration by clicking on the link below:
-            ${process.env.BASE_URL_FRONTEND}/registration/verify?token=${token}`,
+            'Megerősítő email',
+            MailComposerService.compose(context, 'email.hbs'),
           );
           throw new VerificationError('verification.errors.tokenExpired');
         }
