@@ -1,24 +1,78 @@
 <mjml>
-  <mj-body background-color="#ffffff" font-size="13px" >
+  <mj-body background-color="#ffffff">
     <mj-section background-color="#ffffff" padding-bottom="0px" padding-top="0">
       <mj-column vertical-align="top" width="100%">
-        <mj-image src="http://go.mailjet.com/tplimg/mtrq/b/ox8s/mg1rw.png" alt="" align="center" border="none" width="600px" padding-left="0px" padding-right="0px" padding-bottom="0px" padding-top="0"></mj-image>
+        <mj-image
+          src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=872&q=80"
+          alt=""
+          align="center"
+          border="none"
+          width="600px"
+          padding-left="0px"
+          padding-right="0px"
+          padding-bottom="0px"
+          padding-top="0"
+        ></mj-image>
       </mj-column>
     </mj-section>
-    <mj-section border="1px solid #5bc0de">
-    <mj-section vertical-align="top" padding-bottom="0px" padding-top="0">
-      <mj-column vertical-align="top" width="100%">
-        <mj-text align="left" font-size="30px" font-weight="bold" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px" padding-bottom="15px" padding-top="25px">Megerősítő email</mj-text>
-      </mj-column>
-    </mj-section>
-    <mj-section padding-bottom="20px" padding-top="20px">
-      <mj-column vertical-align="middle" width="100%">
-        <mj-text align="left" font-size="18px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"><span style="color:#5bc0de; font-size:22px">Kedves [[FirstName]]</span><br /><br /> Köszönjük, hogy regisztráltál az Infláció Kalkulátor oldalra.</mj-text>
-        <mj-text align="left" font-size="22px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px">Regisztrációd megerősítéséhez kattints az alábbi gombra:</mj-text>
-        <mj-button align="left" font-size="22px" background-color="#5bc0de" border-radius="10px" color="#ffffff" font-family="open Sans Helvetica, Arial, sans-serif" padding-bottom="25px">Megerősítés</mj-button>
-        <mj-text align="left" font-size="15px" font-family="open Sans Helvetica, Arial, sans-serif" padding-left="25px" padding-right="25px"> A személyes Infláció Kalkulátor csapatod</mj-text>
-      </mj-column>
-    </mj-section>
-   </mj-section>
+    <mj-wrapper border="1px solid #efeb65">
+      <mj-section padding-bottom="0px" padding-top="0">
+        <mj-column vertical-align="top" width="100%">
+          <mj-text
+            align="left"
+            font-size="30px"
+            font-weight="bold"
+            font-family="open Sans Helvetica, Arial, sans-serif"
+            padding-left="25px"
+            padding-right="25px"
+            padding-bottom="15px"
+            padding-top="25px"
+          >Köszönjük, hogy regisztráltál az infláció kalkulátor oldalra</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section padding-bottom="20px" padding-top="20px">
+        <mj-column vertical-align="middle" width="100%">
+          <mj-text
+            align="left"
+            font-size="24px"
+            font-family="open Sans Helvetica, Arial, sans-serif"
+            padding-left="25px"
+            padding-right="25px"
+          >
+            <mj-raw>Kedves {{nickname}},</mj-raw>
+          </mj-text>
+          <mj-text
+            align="left"
+            font-size="16px"
+            font-family="open Sans Helvetica, Arial, sans-serif"
+            padding-left="25px"
+            padding-right="25px"
+          >
+            Regisztrációd megerősítéséhez kattints az alábbi gombra:
+          </mj-text>
+          <mj-button
+            href="{{frontendURL}}/registration/verify?token={{token}}"
+            align="left"
+            font-size="22px"
+            background-color="#efeb65"
+            border-radius="10px"
+            color="#201610"
+            font-family="open Sans Helvetica, Arial, sans-serif"
+            padding-bottom="25px"
+          >
+            Megerősítés
+          </mj-button>
+          <mj-text
+            align="left"
+            font-size="12px"
+            font-family="open Sans Helvetica, Arial, sans-serif"
+            padding-left="25px"
+            padding-right="25px"
+          >
+            Az infláció kalkulátor csapatod
+          </mj-text>
+        </mj-column>
+      </mj-section>
+   </mj-wrapper>
   </mj-body>
 </mjml>

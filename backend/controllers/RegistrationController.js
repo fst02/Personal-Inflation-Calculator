@@ -1,3 +1,8 @@
+const Handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
+const mjml2html = require('mjml');
+
 const hasha = require('hasha');
 const cryptoRandomString = require('crypto-random-string');
 
@@ -18,13 +23,19 @@ module.exports = {
       const user = await UserService.create(userData);
       const token = cryptoRandomString({ length: 15, type: 'url-safe' });
       await UserService.activate(user, token);
-
+      const templateFile = fs.readFileSync(path.join(__dirname, '../views/email.hbs'), 'utf8');
+      const template = Handlebars.compile(templateFile);
+      const context = {
+        nickname: user.nickname,
+        frontendURL: process.env.BASE_URL_FRONTEND,
+        token,
+      };
+      const hbsProcessedTemplate = template(context);
+      const mjmlProcessedTemplate = mjml2html(hbsProcessedTemplate);
       MailerService.send(
         userData.email,
-        'Confirmation email',
-        `Let's confirm your email address.
-        Please finish your registration by clicking on the link below:
-        ${process.env.BASE_URL_FRONTEND}/registration/verify?token=${token}`,
+        'Megerősítő email',
+        mjmlProcessedTemplate.html,
       );
       res.json(user);
     } catch (err) {
