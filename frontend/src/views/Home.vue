@@ -8,7 +8,24 @@
         a személyre szabott infláció számitáshoz
       </b-form-text>
     </div>
-    <CategoryComponent v-for="category in categories" :key="category.id" :category="category" />
+    <div class="pretty p-switch">
+        <input type="radio" name="weightType" v-model="weightType" value="percentage" />
+        <div class="state p-info">
+            <label>Százalék</label>
+        </div>
+    </div>
+    <div class="pretty p-switch">
+        <input type="radio" name="weightType" v-model="weightType" value="amount" />
+        <div class="state p-info">
+            <label>Érték</label>
+        </div>
+    </div>
+    <CategoryComponent
+      v-for="category in categories"
+      :key="category.id"
+      :category="category"
+      :weightType="weightType"
+    />
   </div>
 </template>
 
@@ -24,6 +41,7 @@ export default {
   },
   data: () => ({
     categories: [],
+    weightType: 'percentage',
   }),
   async created() {
     await this.$store.dispatch('categories/getCategories');

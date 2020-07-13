@@ -12,7 +12,10 @@ const UserCategory = sequelize.define('user_categories', {
     type: Sequelize.INTEGER,
     primaryKey: true,
   },
-  weight: {
+  percentage: {
+    type: Sequelize.FLOAT,
+  },
+  amount: {
     type: Sequelize.FLOAT,
   },
   active: {

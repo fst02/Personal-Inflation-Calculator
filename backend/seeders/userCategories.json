@@ -2,7 +2,8 @@
   {
     "userId": 1,
     "categoryId": "1",
-    "weight": 30,
+    "percentage": 30,
+    "amount": 6000,
     "active": true
   }
 ]

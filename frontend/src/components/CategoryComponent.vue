@@ -31,7 +31,11 @@
         <b-col>
           <b-card-body>
             <b-card-text>
-              <b-input-group class="mr-1 p-0" prepend="Súly:">
+              <b-input-group
+                class="mr-1 p-0"
+                prepend="Súly:"
+                :append="weightType === 'percentage' ? '%' : 'Ft' "
+              >
                 <b-form-input
                   @keyup="setTimer"
                   @keydown="countDown"
@@ -68,6 +72,7 @@ export default {
   name: 'CategoryComponent',
   props: {
     category: CategoryDto,
+    weightType: String,
   },
   data: () => ({ typingTimer: null }),
   computed: {
