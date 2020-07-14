@@ -11,7 +11,19 @@ export default {
   },
   mutations: {
     setCategories(state, payload) {
-      state.categories = payload.map((category) => new CategoryDto(category));
+      state.categories = payload.map((categoryData) => {
+        const category = new CategoryDto(categoryData);
+        if (categoryData.user_categories[0]) {
+          category.userCategory = new UserCategoryDto(categoryData.user_categories[0]);
+        } else {
+          category.userCategory = new UserCategoryDto({
+            percentage: category.percentage,
+            categoryId: category.id,
+            active: category.active,
+          });
+        }
+        return category;
+      });
       state.error = null;
     },
     setError(state, payload) {

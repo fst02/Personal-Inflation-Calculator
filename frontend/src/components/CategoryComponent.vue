@@ -41,14 +41,14 @@
                   @keyup="setTimer"
                   @keydown="countDown"
                   type="number"
-                  v-model="category.percentage"
+                  v-model="category.userCategory.percentage"
                 />
                 <b-form-input
                   v-if="weightType === 'amount'"
                   @keyup="setTimer"
                   @keydown="countDown"
                   type="number"
-                  v-model="category.amount"
+                  v-model="category.userCategory.amount"
                 />
               </b-input-group>
               <h6 class="mt-2 font-weight-bold">Alkategóriák:</h6>
@@ -74,7 +74,6 @@
 
 <script>
 import CategoryDto from '../dtos/CategoryDto';
-import UserCategoryDto from '../dtos/UserCategoryDto';
 
 export default {
   name: 'CategoryComponent',
@@ -90,15 +89,7 @@ export default {
   },
   methods: {
     modifyCategory() {
-      const userCategory = new UserCategoryDto({
-        userId: this.$store.state.auth.user.id,
-        categoryId: this.category.id,
-        percentage: this.category.percentage,
-        amount: this.category.amount,
-        active: this.category.active,
-      });
-      console.log(userCategory);
-      this.$store.dispatch('categories/setUserSpecific', userCategory);
+      this.$store.dispatch('categories/setUserSpecific', this.category.userCategory);
     },
     countDown() {
       clearTimeout(this.typingTimer);

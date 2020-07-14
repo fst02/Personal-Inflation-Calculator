@@ -32,15 +32,24 @@ const getUserSpecific = async (req, res) => {
 
 const setUserSpecific = async (req, res) => {
   try {
+    let userId;
+    try {
+      const verify = jwt.verify(req.header('authorization').split(' ').pop(), secrets.jwtSecret);
+      userId = verify.userId;
+    } catch (err) {
+      res.status(401).json(err);
+      return;
+    }
     let userCategory = await UserCategory.findOne({
       where: {
-        userId: req.body.userId,
+        userId,
         categoryId: req.body.categoryId,
       },
     });
     if (userCategory) {
       userCategory.active = req.body.active;
-      userCategory.weight = req.body.weight;
+      userCategory.percentage = req.body.percentage;
+      userCategory.amount = req.body.amount;
       userCategory.save();
     } else {
       userCategory = await UserCategory.create(req.body);
