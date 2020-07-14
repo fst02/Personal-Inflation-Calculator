@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import RateComponent from '../components/RateComponent.vue';
 import CategoryComponent from '../components/CategoryComponent.vue';
 
@@ -40,30 +41,14 @@ export default {
     CategoryComponent,
   },
   data: () => ({
-    categories: [],
     weightType: 'percentage',
   }),
   async created() {
-    await this.$store.dispatch('categories/getCategories');
-    this.categories = this.$store.state.categories.categories;
-    if (this.$store.state.auth.user) {
-      await this.$store.dispatch('auth/verifyToken');
-      if (this.$store.state.auth.token) {
-        await this.$store.dispatch('categories/getUserCategories', this.$store.state.auth.user.id);
-        const { userCategories } = this.$store.state.categories;
-        userCategories.forEach((userCategory) => {
-          this.categories
-            .filter((category) => category.id === userCategory.categoryId)
-            .forEach((item) => {
-              // eslint-disable-next-line no-param-reassign
-              item.weight = userCategory.weight;
-              // eslint-disable-next-line no-param-reassign
-              item.active = userCategory.active;
-            });
-        });
-      }
-    }
+    await this.$store.dispatch('categories/getUserCategories');
   },
+  computed: mapState({
+    categories: (state) => state.categories.categories,
+  }),
 };
 </script>
 

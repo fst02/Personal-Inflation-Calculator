@@ -16,7 +16,7 @@ const Category = sequelize.define('categories', {
   value: {
     type: Sequelize.FLOAT,
   },
-  weight: {
+  percentage: {
     type: Sequelize.FLOAT,
   },
   imagePath: {

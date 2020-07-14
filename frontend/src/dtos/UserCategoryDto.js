@@ -3,7 +3,8 @@ export default class UserCategoryDto {
     if (data) {
       this.userId = data.userId;
       this.categoryId = data.categoryId;
-      this.weight = data.weight;
+      this.percentage = data.percentage;
+      this.amount = data.amount;
       this.active = data.active;
     }
   }

@@ -4,7 +4,8 @@ export default class CategoryDto {
       this.id = data.id;
       this.name = data.name;
       this.value = data.value;
-      this.weight = data.weight;
+      this.percentage = data.percentage;
+      this.amount = data.amount;
       this.active = data.active;
       this.imagePath = data.imagePath;
     }

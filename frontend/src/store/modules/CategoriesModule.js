@@ -1,5 +1,6 @@
 import http from '../helpers/HttpHelper';
 import CategoryDto from '../../dtos/CategoryDto';
+import UserCategoryDto from '../../dtos/UserCategoryDto';
 
 export default {
   namespaced: true,
@@ -17,7 +18,7 @@ export default {
       state.error = payload;
     },
     setUserCategories(state, payload) {
-      state.userCategories = payload;
+      state.userCategories = payload.map((category) => new UserCategoryDto(category));
       state.error = null;
     },
   },
@@ -31,10 +32,10 @@ export default {
         console.log(err);
       }
     },
-    async getUserCategories(context, userId) {
+    async getUserCategories(context) {
       try {
-        const result = await http(context).get(`/userCategories?userId=${userId}`);
-        context.commit('setUserCategories', result.data);
+        const result = await http(context).get('/userCategories');
+        context.commit('setCategories', result.data);
       } catch (err) {
         context.commit('setError', err.response?.data || err);
       }

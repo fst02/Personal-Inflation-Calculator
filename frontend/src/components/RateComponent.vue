@@ -11,15 +11,18 @@ export default {
   name: 'RateComponent',
   props: {
     categories: Array,
+    weightType: String,
   },
   computed: {
     rate() {
       const selectedCategories = this.categories.filter(
         (category) => category.active === true,
       );
-      const weights = selectedCategories.map((element) => parseFloat(element.weight))
+      const weights = selectedCategories
+        .map((category) => parseFloat(category[this.weightType]))
         .reduce((a, b) => a + b, 0);
-      const sum = selectedCategories.map((element) => parseFloat(element.weight) * element.value)
+      const sum = selectedCategories
+        .map((category) => parseFloat(category[this.weightType]) * category.value)
         .reduce((a, b) => a + b, 0);
       return Math.round((sum / weights) * 100) / 100;
     },

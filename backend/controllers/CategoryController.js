@@ -1,5 +1,7 @@
+const jwt = require('jsonwebtoken');
+const secrets = require('../config/secrets.json');
 const Category = require('../models/Category');
-const UserCategories = require('../models/UserCategory');
+const UserCategory = require('../models/UserCategory');
 
 const getAll = async (req, res) => {
   try {
@@ -12,10 +14,17 @@ const getAll = async (req, res) => {
 
 const getUserSpecific = async (req, res) => {
   try {
-    const userSpecific = await UserCategories.findAll(
-      { where: { userId: req.query.userId } },
+    let userId;
+    try {
+      const verify = jwt.verify(req.header('authorization').split(' ').pop(), secrets.jwtSecret);
+      userId = verify.userId;
+    } catch (err) {
+      userId = null;
+    }
+    const categoriesWithUserCategories = await Category.findAll(
+      { include: [{ model: UserCategory, where: { userId }, required: false }] },
     );
-    res.json(userSpecific);
+    res.json(categoriesWithUserCategories);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -23,7 +32,7 @@ const getUserSpecific = async (req, res) => {
 
 const setUserSpecific = async (req, res) => {
   try {
-    let userCategory = await UserCategories.findOne({
+    let userCategory = await UserCategory.findOne({
       where: {
         userId: req.body.userId,
         categoryId: req.body.categoryId,
@@ -34,7 +43,7 @@ const setUserSpecific = async (req, res) => {
       userCategory.weight = req.body.weight;
       userCategory.save();
     } else {
-      userCategory = await UserCategories.create(req.body);
+      userCategory = await UserCategory.create(req.body);
     }
     res.json(userCategory);
   } catch (err) {

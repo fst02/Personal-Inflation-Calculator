@@ -37,10 +37,18 @@
                 :append="weightType === 'percentage' ? '%' : 'Ft' "
               >
                 <b-form-input
+                  v-if="weightType === 'percentage'"
                   @keyup="setTimer"
                   @keydown="countDown"
                   type="number"
-                  v-model="category.weight"
+                  v-model="category.percentage"
+                />
+                <b-form-input
+                  v-if="weightType === 'amount'"
+                  @keyup="setTimer"
+                  @keydown="countDown"
+                  type="number"
+                  v-model="category.amount"
                 />
               </b-input-group>
               <h6 class="mt-2 font-weight-bold">Alkategóriák:</h6>
@@ -85,7 +93,8 @@ export default {
       const userCategory = new UserCategoryDto({
         userId: this.$store.state.auth.user.id,
         categoryId: this.category.id,
-        weight: this.category.weight,
+        percentage: this.category.percentage,
+        amount: this.category.amount,
         active: this.category.active,
       });
       console.log(userCategory);

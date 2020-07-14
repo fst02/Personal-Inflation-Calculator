@@ -8,7 +8,7 @@ Vue.use(Vuex);
 
 const persistence = new VuexPersistence({
   storage: window.localStorage,
-  modules: ['auth', 'categories'],
+  modules: ['auth'],
 });
 
 export default new Vuex.Store({
