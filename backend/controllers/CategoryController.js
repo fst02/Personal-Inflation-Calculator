@@ -5,15 +5,6 @@ const UserCategory = require('../models/UserCategory');
 
 const getAll = async (req, res) => {
   try {
-    const categories = await Category.findAll();
-    res.json(categories);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-const getUserSpecific = async (req, res) => {
-  try {
     let userId;
     try {
       const verify = jwt.verify(req.header('authorization').split(' ').pop(), secrets.jwtSecret);
@@ -62,6 +53,5 @@ const setUserSpecific = async (req, res) => {
 
 module.exports = {
   getAll,
-  getUserSpecific,
   setUserSpecific,
 };

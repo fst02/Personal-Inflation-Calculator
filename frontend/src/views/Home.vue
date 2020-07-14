@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Infláció kalkulátor</h1>
-    <RateComponent :categories="categories" />
+    <RateComponent :categories="categories" :weightType="weightType" />
     <div>
       <b-form-text class="mb-2">
         Állitsd át a kategória csúszkát és valtoztasd meg a súlyokat
@@ -44,7 +44,7 @@ export default {
     weightType: 'percentage',
   }),
   async created() {
-    await this.$store.dispatch('categories/getUserCategories');
+    await this.$store.dispatch('categories/getAll');
   },
   computed: mapState({
     categories: (state) => state.categories.categories,

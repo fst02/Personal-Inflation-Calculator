@@ -7,7 +7,6 @@ export default {
   state: {
     categories: [],
     error: null,
-    userCategories: null,
   },
   mutations: {
     setCategories(state, payload) {
@@ -29,24 +28,11 @@ export default {
     setError(state, payload) {
       state.error = payload;
     },
-    setUserCategories(state, payload) {
-      state.userCategories = payload.map((category) => new UserCategoryDto(category));
-      state.error = null;
-    },
   },
   actions: {
-    async getCategories(context) {
+    async getAll(context) {
       try {
         const result = await http(context).get('/categories');
-        context.commit('setCategories', result.data);
-      } catch (err) {
-        context.commit('setError', err);
-        console.log(err);
-      }
-    },
-    async getUserCategories(context) {
-      try {
-        const result = await http(context).get('/userCategories');
         context.commit('setCategories', result.data);
       } catch (err) {
         context.commit('setError', err.response?.data || err);

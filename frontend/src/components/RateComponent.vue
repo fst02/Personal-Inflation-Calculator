@@ -19,10 +19,10 @@ export default {
         (category) => category.active === true,
       );
       const weights = selectedCategories
-        .map((category) => parseFloat(category[this.weightType]))
+        .map((category) => parseFloat(category.userCategory[this.weightType]))
         .reduce((a, b) => a + b, 0);
       const sum = selectedCategories
-        .map((category) => parseFloat(category[this.weightType]) * category.value)
+        .map((category) => parseFloat(category.userCategory[this.weightType]) * category.value)
         .reduce((a, b) => a + b, 0);
       return Math.round((sum / weights) * 100) / 100;
     },
