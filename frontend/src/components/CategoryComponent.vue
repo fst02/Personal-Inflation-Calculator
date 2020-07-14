@@ -38,15 +38,13 @@
               >
                 <b-form-input
                   v-if="weightType === 'percentage'"
-                  @keyup="setTimer"
-                  @keydown="countDown"
+                  @input="setTimer"
                   type="number"
                   v-model="category.userCategory.percentage"
                 />
                 <b-form-input
                   v-if="weightType === 'amount'"
-                  @keyup="setTimer"
-                  @keydown="countDown"
+                  @input="setTimer"
                   type="number"
                   v-model="category.userCategory.amount"
                 />
@@ -89,10 +87,9 @@ export default {
   },
   methods: {
     modifyCategory() {
-      this.$store.dispatch('categories/setUserSpecific', this.category.userCategory);
-    },
-    countDown() {
-      clearTimeout(this.typingTimer);
+      if (this.$store.state.auth.user) {
+        this.$store.dispatch('categories/setUserSpecific', this.category.userCategory);
+      }
     },
     setTimer() {
       clearTimeout(this.typingTimer);

@@ -3,6 +3,9 @@
     <h4 class="align-self-center">
       Személyes {{(rate &lt; 100) ? "deflációd" : "inflációd"}}: {{rate}}%
     </h4>
+    <h5 class="align-self-center" v-if="weightType === 'percentage'">
+      Százaléksúlyok összege: {{percentageSum}}%
+    </h5>
   </div>
 </template>
 
@@ -14,6 +17,15 @@ export default {
     weightType: String,
   },
   computed: {
+    percentageSum() {
+      const selectedCategories = this.categories.filter(
+        (category) => category.active === true,
+      );
+      const percentageSum = selectedCategories
+        .map((category) => parseFloat(category.userCategory.percentage))
+        .reduce((a, b) => a + b, 0);
+      return Math.round(percentageSum);
+    },
     rate() {
       const selectedCategories = this.categories.filter(
         (category) => category.active === true,
@@ -34,8 +46,6 @@ export default {
   .inflationBox {
     width: 50%;
     height: 10vh;
-    display: flex;
-    justify-content: center;
     background-color: #f3faf7;
     -webkit-box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
     -moz-box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
