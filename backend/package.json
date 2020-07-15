@@ -6,7 +6,8 @@
     "start": "node ./bin/www",
     "watch": "nodemon ./bin/www",
     "watch-and-log": "npm run watch > ../logs/backend.log 2>&1",
-    "db-reset": "sequelize-cli db:migrate:undo:all && sequelize db:migrate && sequelize-cli db:seed:all"
+    "db-reset": "sequelize-cli db:migrate:undo:all && sequelize db:migrate && sequelize-cli db:seed:all",
+    "test-ksh-service": "node commands/testKshService.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

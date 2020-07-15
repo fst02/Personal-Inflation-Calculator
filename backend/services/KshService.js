@@ -36,19 +36,19 @@ const readXLS = async () => {
   const categories = [];
   const xlsFile = await xlsx.readFile(KSH_XLS_FILE);
   const workSheet = xlsFile.Sheets[xlsFile.SheetNames[0]];
-  const indexCollPrefix = 'A';
-  const valueCollPrefix = 'BI';
-  const weightCollPrefix = 'BC';
-  const nameCollPrefix = 'B';
+  const indexCol = 'A';
+  const nameCol = 'B';
+  const valueCol = 'BI';
+  const percentageCol = 'BC';
   const firstRow = 5;
   const lastRow = 190;
 
   for (let i = firstRow; i < lastRow; i++) {
-    const id = workSheet[indexCollPrefix + i].v;
-    const name = workSheet[nameCollPrefix + i].v.trimEnd();
-    const value = workSheet[valueCollPrefix + i].v;
-    const weight = workSheet[weightCollPrefix + i].v;
-    categories[id] = new CategoryDto(id, name, weight, value);
+    const id = workSheet[indexCol + i].v;
+    const name = workSheet[nameCol + i].v.trimEnd();
+    const value = workSheet[valueCol + i].v;
+    const percentage = workSheet[percentageCol + i].v;
+    categories[id] = new CategoryDto(id, name, percentage, value);
   }
 
   Object.keys(categories).forEach((key) => {
