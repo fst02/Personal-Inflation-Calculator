@@ -1,5 +1,9 @@
 <template>
-  <div class="mx-auto inflationBox align-items-center mb-4 sticky-top" v-if="!isNaN(rate)">
+  <div
+    v-if="!isNaN(rate)"
+    class="mx-auto inflationBox align-items-center mb-4 sticky-top"
+    :class="{ 'hundred-percent': isHundredPercent }"
+  >
     <h4 class="align-self-center">
       Személyes {{(rate &lt; 100) ? "deflációd" : "inflációd"}}: {{rate}}%
     </h4>
@@ -26,6 +30,9 @@ export default {
         .reduce((a, b) => a + b, 0);
       return Math.round(percentageSum);
     },
+    isHundredPercent() {
+      return this.percentageSum === 100;
+    },
     rate() {
       const selectedCategories = this.categories.filter(
         (category) => category.active === true,
@@ -43,17 +50,20 @@ export default {
 </script>
 
 <style scoped>
+.inflationBox {
+  padding: 6px;
+  width: 50%;
+  background-color: rgb(248, 226, 226);
+  -webkit-box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
+  -moz-box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
+  box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
+}
+@media only screen and (max-width: 720px) {
   .inflationBox {
-    width: 50%;
-    height: 10vh;
-    background-color: #f3faf7;
-    -webkit-box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
-    -moz-box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
-    box-shadow: 19px 13px 22px -9px rgba(98,146,163,1);
+    width: auto;
   }
-  @media only screen and (max-width: 720px) {
-  .inflationBox {
-    height: 15vh;
-  }
-  }
+}
+.hundred-percent {
+  background-color: #e4f8eb;
+}
 </style>
