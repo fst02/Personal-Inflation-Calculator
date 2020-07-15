@@ -7,7 +7,7 @@ import router from './router';
 import store from './store';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'pretty-checkbox/dist/pretty-checkbox.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -45,6 +45,10 @@ const messages = {
       emailRequired: 'Email cím megadása kötelező',
       emailValidation: 'Érvényes/létező email cím megadása kötelező',
       passwordRequired: 'Jelszó megadása kötelező',
+    },
+    home: {
+      toastDescription: 'A kategóriánkénti súlyok összegének 100%-nak kell lennie a pontos számításhoz. Ha változtatsz az oldalon megadott súlyokon, hogy jobban tükrözzék személyes kiadásaidat, erre figyelj. Ha százalékról átváltasz forint értékre, érdemes úgy megadni az értékeket, hogy a kiadásaid összegét elosztod a kategóriák között.',
+      toastTitle: 'Használati javaslat',
     },
   },
 };

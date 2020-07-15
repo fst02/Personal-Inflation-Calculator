@@ -51,6 +51,14 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+#info {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 23px;
+  cursor: pointer;
+  z-index: 100;
+}
 label.btn.btn-outline-info:hover {
   background-color: #65b768 !important;
 }

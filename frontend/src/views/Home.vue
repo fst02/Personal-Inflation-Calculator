@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-icon id="info" icon="info-circle" @click="showDescriptionToast"/>
     <h1>Infláció kalkulátor</h1>
     <RateComponent :categories="categories" :weightType="weightType" />
     <div>
@@ -44,11 +45,21 @@ export default {
     weightType: 'percentage',
   }),
   async created() {
+    this.showDescriptionToast();
     await this.$store.dispatch('categories/getAll');
   },
   computed: mapState({
     categories: (state) => state.categories.categories,
   }),
+  methods: {
+    showDescriptionToast() {
+      this.$bvToast.toast(this.$t('home.toastDescription'), {
+        title: this.$t('home.toastTitle'),
+        noAutoHide: true,
+        variant: 'info',
+      });
+    },
+  },
 };
 </script>
 

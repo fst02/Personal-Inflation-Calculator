@@ -10,6 +10,9 @@
     <h5 class="align-self-center" v-if="weightType === 'percentage'">
       Százaléksúlyok összege: {{percentageSum}}%
     </h5>
+    <h5 v-else>
+
+    </h5>
   </div>
 </template>
 
