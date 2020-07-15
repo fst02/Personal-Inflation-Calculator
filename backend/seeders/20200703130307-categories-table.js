@@ -1,8 +1,9 @@
-const categories = require('./categories.json');
+const KshService = require('../services/KshService');
 const ImageService = require('../services/ImageService');
 
 module.exports = {
   up: async (queryInterface) => {
+    const categories = await KshService.importStatistics();
     const processedCategories = categories.map(async (category) => {
       let path;
       try {

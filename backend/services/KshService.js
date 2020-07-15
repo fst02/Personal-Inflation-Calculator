@@ -12,12 +12,13 @@ const downloadFile = async () => {
 };
 
 class CategoryDto {
-  constructor(id, name, weight, value) {
+  constructor(id, name, percentage, value) {
     this.id = id;
     this.name = name;
-    this.weight = weight;
+    this.percentage = percentage;
     this.value = value;
-    this.parentCategory = null;
+    // this.parentCategory = null;
+    this.active = true; // @todo
   }
 }
 
@@ -47,7 +48,7 @@ const readXLS = async () => {
     const name = workSheet[nameCollPrefix + i].v.trimEnd();
     const value = workSheet[valueCollPrefix + i].v;
     const weight = workSheet[weightCollPrefix + i].v;
-    categories[id] = new CategoryDto(id, name, value, weight);
+    categories[id] = new CategoryDto(id, name, weight, value);
   }
 
   Object.keys(categories).forEach((key) => {
@@ -69,9 +70,11 @@ const readXLS = async () => {
   return categories;
 };
 
-const main = async () => {
+const importStatistics = async () => {
   await downloadFile();
-  console.log(await readXLS());
+  return readXLS();
 };
 
-main();
+module.exports = {
+  importStatistics,
+};
