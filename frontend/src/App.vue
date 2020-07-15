@@ -12,14 +12,17 @@
     <b-container>
       <router-view />
     </b-container>
+    <FooterComponent />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import FooterComponent from './components/FooterComponent.vue';
 
 export default {
   name: 'App',
+  components: { FooterComponent },
   computed: mapState({ user: (state) => state.auth.user }),
   methods: {
     logout() {
@@ -37,6 +40,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 30px;
 }
 
 #nav {

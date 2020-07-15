@@ -50,6 +50,9 @@ const messages = {
       toastDescription: 'A kategóriánkénti súlyok összegének 100%-nak kell lennie a pontos számításhoz. Ha változtatsz az oldalon megadott súlyokon, hogy jobban tükrözzék személyes kiadásaidat, erre figyelj. Ha százalékról átváltasz forint értékre, érdemes úgy megadni az értékeket, hogy a kiadásaid összegét elosztod a kategóriák között.',
       toastTitle: 'Használati javaslat',
     },
+    footer: {
+      source: 'Az alkalmazás <a href="http://www.ksh.hu/docs/hun/xstadat/xstadat_evkozi/e_qsf002i.html?back=/stadat_far" target="_blank">a KSH adatait</a> használja.',
+    },
   },
 };
 
