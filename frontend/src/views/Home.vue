@@ -1,6 +1,12 @@
 <template>
   <div>
     <b-icon id="info" icon="info-circle" @click="showDescriptionToast"/>
+    <b-toast id="info-toast" variant="info" @hidden="hideDescriptionToast" no-auto-hide >
+      <template v-slot:toast-title>
+        {{ $t('home.toastTitle') }}
+      </template>
+      {{ $t('home.toastDescription') }}
+    </b-toast>
     <h1>Infláció kalkulátor</h1>
     <RateComponent :categories="categories" :weightType="weightType" />
     <div>
@@ -45,19 +51,24 @@ export default {
     weightType: 'percentage',
   }),
   async created() {
-    this.showDescriptionToast();
     await this.$store.dispatch('categories/getAll');
+  },
+  mounted() {
+    if (!this.isInfoViewed) {
+      this.showDescriptionToast();
+    }
   },
   computed: mapState({
     categories: (state) => state.categories.categories,
+    isInfoViewed: (state) => state.info.viewed,
   }),
   methods: {
     showDescriptionToast() {
-      this.$bvToast.toast(this.$t('home.toastDescription'), {
-        title: this.$t('home.toastTitle'),
-        noAutoHide: true,
-        variant: 'info',
-      });
+      this.$bvToast.show('info-toast');
+    },
+    hideDescriptionToast() {
+      console.log('ok');
+      this.$store.commit('info/setViewed');
     },
   },
 };
