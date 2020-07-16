@@ -8,6 +8,7 @@ export default class CategoryDto {
       this.amount = data.amount;
       this.active = data.active;
       this.imagePath = data.imagePath;
+      this.children = data.children?.map((category) => new CategoryDto(category));
     }
   }
 }

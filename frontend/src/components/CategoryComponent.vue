@@ -12,7 +12,11 @@
           </b-col>
           <b-col>
             <div class="pretty p-switch mb-0 float-md-right float-left">
-              <input @change="modifyCategory" type="checkbox" v-model="category.active" />
+              <input
+                @change="modifyUserCategory"
+                type="checkbox"
+                v-model="category.userCategory.active"
+              />
               <div class="state p-info ">
                 <label>Be-/kikapcsolás</label>
               </div>
@@ -41,27 +45,52 @@
                   @input="setTimer"
                   type="number"
                   v-model="category.userCategory.percentage"
+                  :disabled="visible"
                 />
                 <b-form-input
                   v-if="weightType === 'amount'"
                   @input="setTimer"
                   type="number"
                   v-model="category.userCategory.amount"
+                  :disabled="visible"
                 />
               </b-input-group>
-              <h6 class="mt-2 font-weight-bold">Alkategóriák:</h6>
-              <b-row align-v="center" class="ml-0">
-                <b-form-checkbox switch class="mr-1 text-left"/>
-                <h6 class="mb-0 text-left">Alkategória 1</h6>
-              </b-row>
-              <b-row align-v="center" class="ml-0">
-                <b-form-checkbox switch class="mr-1 text-left"/>
-                <h6 class="mb-0 text-left">Alkategória 2</h6>
-              </b-row>
-              <b-row align-v="center" class="ml-0">
-                <b-form-checkbox switch class="mr-1 text-left"/>
-                <h6 class="mb-0 text-left">Alkategória 3</h6>
-              </b-row>
+              <b-button
+                variant="primary"
+                :class="visible ? null : 'collapsed'"
+                :aria-expanded="visible ? 'true' : 'false'"
+                aria-controls="subCategories"
+                @click="visible = !visible"
+              >
+                Alkategóriák
+              </b-button>
+              <b-collapse id="subCategories" v-model="visible">
+                <h6 class="mt-2 font-weight-bold">Alkategóriák:</h6>
+                <b-row align-v="center" class="ml-0"
+                  v-for="subcategory in category.children"
+                  :key="subcategory.id"
+                >
+                  <b-form-checkbox switch class="mr-1 text-left" v-model="subcategory.active"/>
+                  <div class="mb-0 text-left">{{subcategory.name}}</div>
+                  <b-input-group
+                    class="mr-1 p-0 input-group-sm mb-3"
+                    :append="weightType === 'percentage' ? '%' : 'Ft' "
+                  >
+                    <b-form-input
+                      v-if="weightType === 'percentage'"
+                      @input="setTimer"
+                      type="number"
+                      v-model="subcategory.percentage"
+                    />
+                    <b-form-input
+                      v-if="weightType === 'amount'"
+                      @input="setTimer"
+                      type="number"
+                      v-model="subcategory.amount"
+                    />
+                  </b-input-group>
+                </b-row>
+              </b-collapse>
             </b-card-text>
           </b-card-body>
         </b-col>
@@ -79,14 +108,17 @@ export default {
     category: CategoryDto,
     weightType: String,
   },
-  data: () => ({ typingTimer: null }),
+  data: () => ({
+    typingTimer: null,
+    visible: false,
+  }),
   computed: {
     imagePath() {
       return `${process.env.VUE_APP_API_ENDPOINT}/images/${this.category.imagePath}`;
     },
   },
   methods: {
-    modifyCategory() {
+    modifyUserCategory() {
       if (this.$store.state.auth.user) {
         this.$store.dispatch('categories/setUserSpecific', this.category.userCategory);
       }
@@ -94,7 +126,7 @@ export default {
     setTimer() {
       clearTimeout(this.typingTimer);
       this.typingTimer = setTimeout(() => {
-        this.modifyCategory();
+        this.modifyUserCategory();
       }, 2000);
     },
   },
