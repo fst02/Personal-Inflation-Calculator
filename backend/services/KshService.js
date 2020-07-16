@@ -1,11 +1,12 @@
-const wget = require('node-wget');
+const util = require('util');
+const wget = util.promisify(require('node-wget'));
 const xlsx = require('xlsx');
 
 const KSH_XLS_URL = 'http://www.ksh.hu/docs/hun/xstadat/xstadat_evkozi/xls/3_6_2h.xls';
 const KSH_XLS_FILE = '/tmp/ksh.xlsx';
 
 const downloadFile = async () => {
-  await wget({
+  return wget({
     url: KSH_XLS_URL,
     dest: KSH_XLS_FILE,
   });
@@ -67,7 +68,7 @@ const readXLS = async () => {
       categories[key].parentCategory = 6;
     }
   });
-  return categories;
+  return Object.values(categories).filter((category) => category);
 };
 
 const importStatistics = async () => {
