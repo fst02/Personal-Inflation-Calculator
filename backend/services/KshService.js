@@ -14,11 +14,11 @@ const downloadFile = async () => {
 
 class CategoryDto {
   constructor(id, name, percentage, value) {
-    this.id = id;
+    this.id = id.toString();
     this.name = name;
     this.percentage = percentage;
     this.value = value;
-    // this.parentCategory = null;
+    this.parentId = null;
     this.active = true; // @todo
   }
 }
@@ -27,8 +27,8 @@ const setParentCategoryIfNotExists = (categories, parentKey, keyMin, keyMax) => 
   Object.keys(categories).forEach((subkey) => {
     if (subkey.includes('–')) return;
     const subValue = categories[subkey];
-    if (subkey >= keyMin && subkey <= keyMax && subValue.parentCategory === null) {
-      subValue.parentCategory = parentKey;
+    if (subkey >= keyMin && subkey <= keyMax && subValue.parentId === null) {
+      subValue.parentId = parentKey;
     }
   });
 };
@@ -60,15 +60,22 @@ const readXLS = async () => {
       const keys = key.split('–');
       setParentCategoryIfNotExists(categories, key, keys[0], keys[1]);
       if (keys[0][0] === keys[1][0]) {
-        categories[key].parentCategory = keys[0][0]; // eslint-disable-line prefer-destructuring
+        categories[key].parentId = keys[0][0]; // eslint-disable-line prefer-destructuring
       }
     }
-    if (key >= 60 && key < 70 && categories[key].parentCategory == null) {
+    if (key >= 60 && key < 70 && categories[key].parentId == null) {
       // a 600 felettieknek nincs '–'-es szülője todo
-      categories[key].parentCategory = 6;
+      categories[key].parentId = 6;
     }
   });
-  return Object.values(categories).filter((category) => category);
+  return Object.values(categories)
+    .filter((category) => category)
+    .sort((a, b) => {
+      if (a.id < b.id) {
+        return -1;
+      }
+      return 1;
+    });
 };
 
 const importStatistics = async () => {

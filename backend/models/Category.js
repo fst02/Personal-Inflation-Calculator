@@ -25,6 +25,12 @@ const Category = sequelize.define('categories', {
   active: {
     type: Sequelize.BOOLEAN,
   },
+  parentId: {
+    type: Sequelize.STRING,
+  },
 });
+
+Category.belongsTo(Category, { as: 'parent' });
+Category.hasMany(Category, { as: 'parent' });
 
 module.exports = Category;

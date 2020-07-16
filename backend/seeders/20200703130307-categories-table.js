@@ -18,7 +18,7 @@ module.exports = {
         imagePath: path,
       });
     });
-    queryInterface.bulkInsert('categories', await Promise.all(processedCategories));
+    await queryInterface.bulkInsert('categories', await Promise.all(processedCategories));
   },
   down: (queryInterface) => queryInterface.bulkDelete('categories', null, {}),
 };
