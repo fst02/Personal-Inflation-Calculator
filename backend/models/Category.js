@@ -30,7 +30,7 @@ const Category = sequelize.define('categories', {
   },
 });
 
-Category.belongsTo(Category, { as: 'parent' });
-Category.hasMany(Category, { as: 'parent' });
+Category.belongsTo(Category, { as: 'parent', foreignKey: 'parentId' });
+Category.hasMany(Category, { as: 'children', foreignKey: 'parentId' });
 
 module.exports = Category;

@@ -12,9 +12,13 @@ const getAll = async (req, res) => {
     } catch (err) {
       userId = null;
     }
-    const categoriesWithUserCategories = await Category.findAll(
-      { include: [{ model: UserCategory, where: { userId }, required: false }] },
-    );
+    const categoriesWithUserCategories = await Category.findAll({
+      include: [
+        { model: UserCategory, where: { userId }, required: false },
+        { model: Category, as: 'children', required: false },
+      ],
+      where: { parentId: null },
+    });
     res.json(categoriesWithUserCategories);
   } catch (err) {
     res.status(500).json(err);
