@@ -1,6 +1,5 @@
 import http from '../helpers/HttpHelper';
 import CategoryDto from '../../dtos/CategoryDto';
-import UserCategoryDto from '../../dtos/UserCategoryDto';
 
 export default {
   namespaced: true,
@@ -10,19 +9,8 @@ export default {
   },
   mutations: {
     setCategories(state, payload) {
-      state.categories = payload.map((categoryData) => {
-        const category = new CategoryDto(categoryData);
-        if (categoryData.user_categories[0]) {
-          category.userCategory = new UserCategoryDto(categoryData.user_categories[0]);
-        } else {
-          category.userCategory = new UserCategoryDto({
-            percentage: category.percentage,
-            categoryId: category.id,
-            active: category.active,
-          });
-        }
-        return category;
-      });
+      console.log(payload);
+      state.categories = payload.map((categoryData) => new CategoryDto(categoryData));
       state.error = null;
     },
     setError(state, payload) {

@@ -13,7 +13,7 @@
           <b-col>
             <div class="pretty p-switch mb-0 float-md-right float-left">
               <input
-                @change="modifyUserCategory"
+                @change="modifyUserCategory(category.userCategory)"
                 type="checkbox"
                 v-model="category.userCategory.active"
               />
@@ -50,7 +50,7 @@
                   v-else
                   type="number"
                   v-model="category.userCategory[weightType]"
-                  @input="setTimer"
+                  @input="setTimer(category.userCategory)"
                   :disabled="!category.userCategory.active"
                 />
               </b-input-group>
@@ -76,7 +76,7 @@
                     <b-form-input
                       v-model="subcategory[weightType]"
                       type="number"
-                      @input="setTimer"
+                      @input="setTimer(subcategory.userCategory)"
                       :disabled="!subcategory.active"
                     />
                   </b-input-group>
@@ -114,15 +114,15 @@ export default {
     },
   },
   methods: {
-    modifyUserCategory() {
+    modifyUserCategory(userCategory) {
       if (this.$store.state.auth.user) {
-        this.$store.dispatch('categories/setUserSpecific', this.category.userCategory);
+        this.$store.dispatch('categories/setUserSpecific', userCategory);
       }
     },
-    setTimer() {
+    setTimer(userCategory) {
       clearTimeout(this.typingTimer);
       this.typingTimer = setTimeout(() => {
-        this.modifyUserCategory();
+        this.modifyUserCategory(userCategory);
       }, 2000);
     },
   },

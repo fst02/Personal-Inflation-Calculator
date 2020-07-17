@@ -1,3 +1,5 @@
+import UserCategoryDto from './UserCategoryDto';
+
 export default class CategoryDto {
   constructor(data) {
     if (data) {
@@ -9,6 +11,15 @@ export default class CategoryDto {
       this.active = data.active;
       this.imagePath = data.imagePath;
       this.children = data.children?.map((category) => new CategoryDto(category));
+      if (data.user_categories && data.user_categories[0]) {
+        this.userCategory = new UserCategoryDto(data.user_categories[0]);
+      } else {
+        this.userCategory = new UserCategoryDto({
+          percentage: this.percentage,
+          categoryId: this.id,
+          active: this.active,
+        });
+      }
     }
   }
 }
