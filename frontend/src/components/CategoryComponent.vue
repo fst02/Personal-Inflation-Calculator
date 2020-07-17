@@ -51,6 +51,7 @@
                   type="number"
                   v-model="category.userCategory[weightType]"
                   @input="setTimer"
+                  :disabled="!category.userCategory.active"
                 />
               </b-input-group>
               <b-button
@@ -73,16 +74,10 @@
                     :append="weightType === 'percentage' ? '%' : 'Ft' "
                   >
                     <b-form-input
-                      v-if="weightType === 'percentage'"
-                      @input="setTimer"
+                      v-model="subcategory[weightType]"
                       type="number"
-                      v-model="subcategory.percentage"
-                    />
-                    <b-form-input
-                      v-if="weightType === 'amount'"
                       @input="setTimer"
-                      type="number"
-                      v-model="subcategory.amount"
+                      :disabled="!subcategory.active"
                     />
                   </b-input-group>
                 </b-row>
