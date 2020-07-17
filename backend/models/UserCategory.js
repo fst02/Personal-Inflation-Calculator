@@ -21,6 +21,9 @@ const UserCategory = sequelize.define('user_categories', {
   active: {
     type: Sequelize.BOOLEAN,
   },
+  childrenActive: {
+    type: Sequelize.BOOLEAN,
+  },
 });
 
 UserCategory.belongsTo(User);

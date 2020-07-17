@@ -4,6 +4,7 @@
     "categoryId": "1",
     "percentage": 30,
     "amount": 6000,
-    "active": true
+    "active": true,
+    "childrenActive": false
   }
 ]

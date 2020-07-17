@@ -41,7 +41,7 @@
                 :append="weightType === 'percentage' ? '%' : 'Ft' "
               >
                 <b-form-input
-                  v-if="visible"
+                  v-if="category.userCategory.childrenActive"
                   type="number"
                   :value="sumOfSubcategories"
                   disabled
@@ -56,13 +56,17 @@
               </b-input-group>
               <b-button
                 variant="primary"
-                @click="visible = !visible"
+                @click="toggleChildrenActive"
                 class="m-3"
                 :disabled="!category.userCategory.active"
               >
                 Alkategóriák
               </b-button>
-              <b-collapse id="subCategories" v-if="category.userCategory.active" v-model="visible">
+              <b-collapse
+               id="subCategories"
+               v-if="category.userCategory.active"
+               v-model="category.userCategory.childrenActive"
+              >
                 <b-row align-v="center" class="ml-0"
                   v-for="subcategory in category.children"
                   :key="subcategory.id"
@@ -97,6 +101,7 @@
 
 <script>
 import CategoryDto from '../dtos/CategoryDto';
+import RateService from '../services/RateService';
 
 export default {
   name: 'CategoryComponent',
@@ -106,16 +111,13 @@ export default {
   },
   data: () => ({
     typingTimer: null,
-    visible: false,
   }),
   computed: {
     imagePath() {
       return `${process.env.VUE_APP_API_ENDPOINT}/images/${this.category.imagePath}`;
     },
     sumOfSubcategories() {
-      return this.category.children
-        .map((category) => parseFloat(category[this.weightType] ?? 0))
-        .reduce((a, b) => a + b);
+      return RateService.sumOfWeights(this.category.children, this.weightType);
     },
   },
   methods: {
@@ -129,6 +131,10 @@ export default {
       this.typingTimer = setTimeout(() => {
         this.modifyUserCategory(userCategory);
       }, 2000);
+    },
+    toggleChildrenActive() {
+      this.category.userCategory.childrenActive = !this.category.userCategory.childrenActive;
+      this.modifyUserCategory(this.category.userCategory);
     },
   },
 };

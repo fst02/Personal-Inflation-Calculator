@@ -9,7 +9,6 @@ export default {
   },
   mutations: {
     setCategories(state, payload) {
-      console.log(payload);
       state.categories = payload.map((categoryData) => new CategoryDto(categoryData));
       state.error = null;
     },

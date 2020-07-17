@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import RateService from '../services/RateService';
+
 export default {
   name: 'RateComponent',
   props: {
@@ -26,7 +28,7 @@ export default {
   computed: {
     percentageSum() {
       const selectedCategories = this.categories.filter(
-        (category) => category.active === true,
+        (category) => category.userCategory.active,
       );
       const percentageSum = selectedCategories
         .map((category) => parseFloat(category.userCategory.percentage))
@@ -38,14 +40,10 @@ export default {
     },
     rate() {
       const selectedCategories = this.categories.filter(
-        (category) => category.active === true,
+        (category) => category.userCategory.active,
       );
-      const weights = selectedCategories
-        .map((category) => parseFloat(category.userCategory[this.weightType]))
-        .reduce((a, b) => a + b, 0);
-      const sum = selectedCategories
-        .map((category) => parseFloat(category.userCategory[this.weightType]) * category.value)
-        .reduce((a, b) => a + b, 0);
+      const weights = RateService.sumOfWeights(selectedCategories, this.weightType);
+      const sum = RateService.sumOfRates(selectedCategories, this.weightType);
       return Math.round((sum / weights) * 100) / 100;
     },
   },

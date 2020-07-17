@@ -50,6 +50,7 @@ const setUserSpecific = async (req, res) => {
       userCategory.active = req.body.active;
       userCategory.percentage = req.body.percentage;
       userCategory.amount = req.body.amount;
+      userCategory.childrenActive = req.body.childrenActive;
       userCategory.save();
     } else {
       userCategory = await UserCategory.create(Object.assign(req.body, { userId }));

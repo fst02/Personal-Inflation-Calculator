@@ -6,6 +6,7 @@ export default class UserCategoryDto {
       this.percentage = data.percentage ?? 0;
       this.amount = data.amount ?? 0;
       this.active = data.active;
+      this.childrenActive = data.childrenActive ?? false;
     }
   }
 }
