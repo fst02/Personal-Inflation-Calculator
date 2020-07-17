@@ -41,18 +41,16 @@
                 :append="weightType === 'percentage' ? '%' : 'Ft' "
               >
                 <b-form-input
-                  v-if="weightType === 'percentage'"
-                  @input="setTimer"
+                  v-if="visible"
                   type="number"
-                  v-model="category.userCategory.percentage"
-                  :disabled="visible"
+                  :value="sumOfSubcategories"
+                  disabled
                 />
                 <b-form-input
-                  v-if="weightType === 'amount'"
-                  @input="setTimer"
+                  v-else
                   type="number"
-                  v-model="category.userCategory.amount"
-                  :disabled="visible"
+                  v-model="category.userCategory[weightType]"
+                  @input="setTimer"
                 />
               </b-input-group>
               <b-button
@@ -113,6 +111,11 @@ export default {
   computed: {
     imagePath() {
       return `${process.env.VUE_APP_API_ENDPOINT}/images/${this.category.imagePath}`;
+    },
+    sumOfSubcategories() {
+      return this.category.children
+        .map((category) => parseFloat(category[this.weightType] ?? 0))
+        .reduce((a, b) => a + b);
     },
   },
   methods: {
