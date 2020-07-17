@@ -57,15 +57,13 @@
               </b-input-group>
               <b-button
                 variant="primary"
-                :class="visible ? null : 'collapsed'"
-                :aria-expanded="visible ? 'true' : 'false'"
-                aria-controls="subCategories"
                 @click="visible = !visible"
+                class="m-3"
+                :disabled="!category.userCategory.active"
               >
                 Alkategóriák
               </b-button>
-              <b-collapse id="subCategories" v-model="visible">
-                <h6 class="mt-2 font-weight-bold">Alkategóriák:</h6>
+              <b-collapse id="subCategories" v-if="category.userCategory.active" v-model="visible">
                 <b-row align-v="center" class="ml-0"
                   v-for="subcategory in category.children"
                   :key="subcategory.id"
