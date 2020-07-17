@@ -67,17 +67,22 @@
                   v-for="subcategory in category.children"
                   :key="subcategory.id"
                 >
-                  <b-form-checkbox switch class="mr-1 text-left" v-model="subcategory.active"/>
+                  <b-form-checkbox
+                    switch
+                    class="mr-1 text-left"
+                    v-model="subcategory.userCategory.active"
+                    @change="modifyUserCategory(subcategory.userCategory)"
+                  />
                   <div class="mb-0 text-left">{{subcategory.name}}</div>
                   <b-input-group
                     class="mr-1 p-0 input-group-sm mb-3"
                     :append="weightType === 'percentage' ? '%' : 'Ft' "
                   >
                     <b-form-input
-                      v-model="subcategory[weightType]"
+                      v-model="subcategory.userCategory[weightType]"
                       type="number"
                       @input="setTimer(subcategory.userCategory)"
-                      :disabled="!subcategory.active"
+                      :disabled="!subcategory.userCategory.active"
                     />
                   </b-input-group>
                 </b-row>

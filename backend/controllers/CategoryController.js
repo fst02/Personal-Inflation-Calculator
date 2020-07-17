@@ -15,7 +15,12 @@ const getAll = async (req, res) => {
     const categoriesWithUserCategories = await Category.findAll({
       include: [
         { model: UserCategory, where: { userId }, required: false },
-        { model: Category, as: 'children', required: false },
+        {
+          model: Category,
+          as: 'children',
+          required: false,
+          include: [{ model: UserCategory, where: { userId }, required: false }],
+        },
       ],
       where: { parentId: null },
     });
@@ -47,7 +52,7 @@ const setUserSpecific = async (req, res) => {
       userCategory.amount = req.body.amount;
       userCategory.save();
     } else {
-      userCategory = await UserCategory.create(req.body);
+      userCategory = await UserCategory.create(Object.assign(req.body, { userId }));
     }
     res.json(userCategory);
   } catch (err) {
