@@ -12,6 +12,21 @@ const RateService = {
     const sum = RateService.sumOfRates(categories, weightType);
     return Math.round((sum / weights) * 100) / 100;
   },
+  getFlattenedCategories: (categories) => {
+    const selectedCategories = [];
+    categories
+      .filter((category) => category.userCategory.active)
+      .forEach((category) => {
+        if (!category.userCategory.childrenActive) {
+          selectedCategories.push(category);
+          return;
+        }
+        category.children
+          .filter((childCategory) => childCategory.userCategory.active)
+          .forEach((childCategory) => selectedCategories.push(childCategory));
+      });
+    return selectedCategories;
+  },
 };
 
 export default RateService;

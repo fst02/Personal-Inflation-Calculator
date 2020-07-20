@@ -27,31 +27,19 @@ export default {
   },
   computed: {
     percentageSum() {
-      const selectedCategories = this.categories.filter(
-        (category) => category.userCategory.active,
-      );
-      const percentageSum = selectedCategories
-        .map((category) => parseFloat(category.userCategory.percentage))
-        .reduce((a, b) => a + b, 0);
-      return Math.round(percentageSum);
+      return Math.round(RateService.sumOfWeights(
+        RateService.getFlattenedCategories(this.categories),
+        this.weightType,
+      ));
     },
     isHundredPercent() {
       return this.percentageSum === 100;
     },
     rate() {
-      const selectedCategories = [];
-      this.categories
-        .filter((category) => category.userCategory.active)
-        .forEach((category) => {
-          if (!category.userCategory.childrenActive) {
-            selectedCategories.push(category);
-            return;
-          }
-          category.children
-            .filter((childCategory) => childCategory.userCategory.active)
-            .forEach((childCategory) => selectedCategories.push(childCategory));
-        });
-      return RateService.getWeightedAverage(selectedCategories, this.weightType);
+      return RateService.getWeightedAverage(
+        RateService.getFlattenedCategories(this.categories),
+        this.weightType,
+      );
     },
   },
 };
