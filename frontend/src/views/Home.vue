@@ -8,7 +8,7 @@
       {{ $t('home.toastDescription') }}
     </b-toast>
     <h1>Infláció kalkulátor</h1>
-    <RateComponent :categories="categories" :weightType="weightType" />
+    <RateComponent :categories="categories" :weightType="user ? user.weightType : weightType" />
     <div>
       <b-form-text class="mb-2">
         Állitsd át a kategória csúszkát és valtoztasd meg a súlyokat
@@ -16,22 +16,38 @@
       </b-form-text>
     </div>
     <div class="pretty p-switch">
-        <input type="radio" name="weightType" v-model="weightType" value="percentage" />
-        <div class="state p-info">
-            <label>Százalék</label>
-        </div>
+      <input
+        v-if="user"
+        @change="saveWeightType"
+        type="radio"
+        name="weightType"
+        v-model="user.weightType"
+        value="percentage"
+      />
+      <input v-else type="radio" name="weightType" v-model="weightType" value="percentage" />
+      <div class="state p-info">
+        <label>Százalék</label>
+      </div>
     </div>
     <div class="pretty p-switch">
-        <input type="radio" name="weightType" v-model="weightType" value="amount" />
-        <div class="state p-info">
-            <label>Érték</label>
-        </div>
+      <input
+        v-if="user"
+        @change="saveWeightType"
+        type="radio"
+        name="weightType"
+        v-model="user.weightType"
+        value="amount"
+      />
+      <input v-else type="radio" name="weightType" v-model="weightType" value="amount" />
+      <div class="state p-info">
+        <label>Érték</label>
+      </div>
     </div>
     <CategoryComponent
       v-for="category in categories"
       :key="category.id"
       :category="category"
-      :weightType="weightType"
+      :weightType="user ? user.weightType : weightType"
     />
   </div>
 </template>
@@ -61,6 +77,7 @@ export default {
   computed: mapState({
     categories: (state) => state.categories.categories,
     isInfoViewed: (state) => state.info.viewed,
+    user: (state) => state.auth.user,
   }),
   methods: {
     showDescriptionToast() {
@@ -69,6 +86,9 @@ export default {
     hideDescriptionToast() {
       console.log('ok');
       this.$store.commit('info/setViewed');
+    },
+    saveWeightType() {
+      this.$store.dispatch('auth/saveWeightType', this.user.weightType);
     },
   },
 };

@@ -5,6 +5,7 @@ export default class UserDto {
       this.email = data.email;
       this.password = data.password;
       this.newPassword = data.newPassword;
+      this.weightType = data.weightType;
     }
   }
 }

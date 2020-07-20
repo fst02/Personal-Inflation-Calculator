@@ -49,5 +49,13 @@ export default {
     logout(context) {
       context.commit('deleteSessionData');
     },
+    async saveWeightType(context, weightType) {
+      try {
+        const result = await http(context).put('/users/weightType', { weightType });
+        context.commit('setUser', result.data);
+      } catch (err) {
+        context.commit('setError', err.response?.data || err);
+      }
+    },
   },
 };

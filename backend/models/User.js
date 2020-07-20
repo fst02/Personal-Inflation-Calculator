@@ -36,6 +36,11 @@ const User = sequelize.define('users', {
     type: Sequelize.BOOLEAN,
     default: false,
   },
+  weightType: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    default: 'percentage',
+  },
 });
 
 module.exports = User;
