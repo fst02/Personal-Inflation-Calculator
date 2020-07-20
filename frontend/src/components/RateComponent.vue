@@ -39,12 +39,19 @@ export default {
       return this.percentageSum === 100;
     },
     rate() {
-      const selectedCategories = this.categories.filter(
-        (category) => category.userCategory.active,
-      );
-      const weights = RateService.sumOfWeights(selectedCategories, this.weightType);
-      const sum = RateService.sumOfRates(selectedCategories, this.weightType);
-      return Math.round((sum / weights) * 100) / 100;
+      const selectedCategories = [];
+      this.categories
+        .filter((category) => category.userCategory.active)
+        .forEach((category) => {
+          if (!category.userCategory.childrenActive) {
+            selectedCategories.push(category);
+            return;
+          }
+          category.children
+            .filter((childCategory) => childCategory.userCategory.active)
+            .forEach((childCategory) => selectedCategories.push(childCategory));
+        });
+      return RateService.getWeightedAverage(selectedCategories, this.weightType);
     },
   },
 };
